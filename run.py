@@ -21,7 +21,7 @@ class Board:
     
     def print(self):
         for row in self.board:
-            print(''.join(row))
+            print(' '.join(row))
     
     def guess(self, x, y):
         self.guesses.append((x, y))
@@ -65,7 +65,37 @@ def populate_board(board):
 
 
 def make_guess(board):
-    pass
+    """
+    For player asks for coordinates and for computer generates
+    rondom coordinates. Then uses those coordinates with the 
+    guess method on both board types.
+
+    Depending on what the guess method returns, it displays the guesses
+    and if it was a hit or a miss.
+    """
+    if board.type == 'computer':
+        x = int(input('Guess a row:\n'))
+        y = int(input('Guess a column:\n'))
+        if board.guess(x, y) == 'Hit':
+            print(f'Player guessed: ({x}, {y})')
+            print('Player hits!')
+            scores['player'] += 1
+        else:
+            print(f'Player guessed: ({x}, {y})')
+            print('Player missed this time.')
+    else:
+        x = random_point(board.size)
+        y = random_point(board.size)
+        if board.guess(x, y) == 'Hit':
+            print(f'Computer guessed: ({x}, {y})')
+            print('Computer hits!')
+            scores['computer'] += 1
+        else:
+            print(f'Computer guessed: ({x}, {y})')
+            print('Computer missed this time.')
+    
+    return board
+
 
 
 def play_game(computer_board, player_board):
@@ -97,9 +127,19 @@ def new_game():
         populate_board(player_board)
         populate_board(computer_board)
 
+    print(f"{player_name}'s Board:")
     player_board.print()
+    print("Computer's Board:")
     computer_board.print()
     print(computer_board.ships)
+    make_guess(computer_board)
+    make_guess(player_board)
+    print(f"{player_name}'s Board:")
+    player_board.print()
+    print("Computer's Board:")
+    computer_board.print()
+    print(scores)
+
 
     # play_game(computer_board, player_board)
 
