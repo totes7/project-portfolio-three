@@ -12,7 +12,7 @@ class Board:
 
     def __init__(self, size, num_ships, name, type):
         self.size = size
-        self.board = [['.' for x in range(size)] for y in range(size)] # Creates board made of dots
+        self.board = [['.' for x in range(size)] for y in range(size)]
         self.num_ships = num_ships
         self.name = name
         self.type = type
@@ -20,35 +20,32 @@ class Board:
         self.ships = []
     
     def print(self):
-        # Prints out board
         for row in self.board:
             print(''.join(row))
     
     def guess(self, x, y):
-        # Replace dot with X on board for each user selection
         self.guesses.append((x, y))
         self.board[x][y] = 'X'
-
-        if (x, y) in self.ships: # If user selection matches ship position, replace dot with * and return hit message
+        
+        if (x, y) in self.ships:
             self.board[x][y] = '*'
-            return 'Hit'
-        else: # If user selection misses, leave X on board and return miss message
+            return 'Hit'    
+        else:
             return 'Miss'
 
     def add_ship(self, x, y, type='computer'):
-        if len(self.ships) >= self.num_ships: # Check that numbers of ships is correct
+        if len(self.ships) >= self.num_ships:
             print('Error: you cannot add any more ships!')
-        else: # Add the ships to ships list, for player board replace dots with @
+        else:
             self.ships.append((x, y))
             if self.type == 'player':
-                self.board[x][y] ='@'
+                self.board[x][y] = '@'
     
 
 def random_point(size):
     """
     Helper function to return a random integer between 0 and size.
     """
-    # We need a random integer from 0 to size - 1 to account for the board being 0 indexed
     return randint(0, size - 1)
 
 
@@ -57,7 +54,14 @@ def valid_coordinates(x, y, board):
 
 
 def populate_board(board):
-    pass
+    """
+    Populates the board with a randomly placed ship.
+    """
+    x = random_point(board.size)
+    y = random_point(board.size)
+    board.add_ship(x, y)
+
+    return board
 
 
 def make_guess(board):
@@ -93,7 +97,11 @@ def new_game():
         populate_board(player_board)
         populate_board(computer_board)
 
-    play_game(computer_board, player_board)
+    player_board.print()
+    computer_board.print()
+    print(computer_board.ships)
+
+    # play_game(computer_board, player_board)
 
 
 new_game()
