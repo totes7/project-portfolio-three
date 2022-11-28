@@ -99,7 +99,39 @@ def make_guess(board):
 
 
 def play_game(computer_board, player_board):
-    pass
+    """
+    Asks the player for coordinates input and generates computer
+    coordinates until someone's score is equal to the number of ships.
+    Then it shows a different message depending on the outcome
+    of the game(player wins, computer wins, draw).
+    """
+    while (scores['player'] < player_board.num_ships) and (scores['computer'] < computer_board.num_ships):
+        make_guess(computer_board)
+        make_guess(player_board)
+        print('-' * 35)
+        print('After this round the score are:')
+        print(f"{player_board.name}: {scores['player']}. Computer: {scores['computer']}")
+        print('-' * 35)
+        print(f"{player_board.name}'s Board:")
+        player_board.print()
+        print("Computer's Board:")
+        computer_board.print()
+
+    if scores['player'] > scores['computer']:
+        print('-' * 35)
+        print(f'{player_board.name} wins!')
+        print('Congratulations!')
+        print('-' * 35)
+    elif scores['player'] < scores['computer']:
+        print('-' * 35)
+        print('Computer wins!')
+        print('Better luck next time!')
+        print('-' * 35)
+    else:
+        print('-' * 35)
+        print('All ships are sanked!')
+        print("It's a draw!")
+        print('-' * 35)
 
 
 def new_game():
@@ -132,16 +164,7 @@ def new_game():
     print("Computer's Board:")
     computer_board.print()
     print(computer_board.ships)
-    make_guess(computer_board)
-    make_guess(player_board)
-    print(f"{player_name}'s Board:")
-    player_board.print()
-    print("Computer's Board:")
-    computer_board.print()
-    print(scores)
-
-
-    # play_game(computer_board, player_board)
+    play_game(computer_board, player_board)
 
 
 new_game()
