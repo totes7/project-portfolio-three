@@ -50,7 +50,23 @@ def random_point(size):
 
 
 def valid_coordinates(x, y, board):
-    pass
+    """
+    Checks that the coordinates provided are positive integers,
+    that they don't hit outside the board boundaries and that 
+    they have not been provided already.
+    """
+    size = board.size - 1
+   
+    coordinates = (x, y)
+    if coordinates in board.guesses:
+        print('You cannot guess the same coordinates more than once.')
+        return False
+    else:
+        if (x < 0) or (y < 0) or (x > size) or (y > size):
+            print(f'Values must be between 0 and {size}!')
+            return False
+        else:
+            return True
 
 
 def populate_board(board):
@@ -74,8 +90,15 @@ def make_guess(board):
     and if it was a hit or a miss.
     """
     if board.type == 'computer':
-        x = int(input('Guess a row:\n'))
-        y = int(input('Guess a column:\n'))
+        while True:
+            try:
+                x = int(input('Guess a row:\n'))
+                y = int(input('Guess a column:\n'))
+                if valid_coordinates(x, y, board) is True:
+                    break
+            except ValueError:
+                print('You must enter a number!')
+            
         if board.guess(x, y) == 'Hit':
             print(f'Player guessed: ({x}, {y})')
             print('Player hits!')
@@ -97,7 +120,6 @@ def make_guess(board):
     return board
 
 
-
 def play_game(computer_board, player_board):
     """
     Asks the player for coordinates input and generates computer
@@ -116,7 +138,9 @@ def play_game(computer_board, player_board):
         player_board.print()
         print("Computer's Board:")
         computer_board.print()
-
+        print(player_board.guesses)
+        print(computer_board.guesses)
+    
     if scores['player'] > scores['computer']:
         print('-' * 35)
         print(f'{player_board.name} wins!')
