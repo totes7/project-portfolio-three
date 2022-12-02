@@ -40,7 +40,7 @@ class Board:
             self.ships.append((x, y))
             if self.type == 'player':
                 self.board[x][y] = '@'
-    
+
 
 def random_point(size):
     """
@@ -52,7 +52,7 @@ def random_point(size):
 def valid_coordinates(x, y, board):
     """
     Checks that the coordinates provided are positive integers,
-    that they don't hit outside the board boundaries and that 
+    that they don't hit outside the board boundaries and that
     they have not been provided already.
     """
     size = board.size - 1
@@ -82,10 +82,9 @@ def populate_board(board):
 
 def make_guess(board):
     """
-    For player asks for coordinates and for computer generates
-    rondom coordinates. Then uses those coordinates with the 
-    guess method on both board types.
-
+    For player asks for coordinates, making sure they are numbers
+    and for computer generates rondom coordinates. Then uses
+    those coordinates with the guess method on both board types.
     Depending on what the guess method returns, it displays the guesses
     and if it was a hit or a miss.
     """
@@ -127,14 +126,17 @@ def play_game(computer_board, player_board):
     Then it shows a different message depending on the outcome
     of the game(player wins, computer wins, draw).
     """
-    while (scores['player'] < player_board.num_ships) and (scores['computer'] < computer_board.num_ships):
+    name = player_board.name
+    p_ships = player_board.num_ships
+    c_ships = computer_board.num_ships
+    while (scores['player'] < p_ships) and (scores['computer'] < c_ships):
         make_guess(computer_board)
         make_guess(player_board)
         print('-' * 35)
         print('After this round the score are:')
-        print(f"{player_board.name}: {scores['player']}. Computer: {scores['computer']}")
+        print(f"{name}: {scores['player']}. Computer: {scores['computer']}")
         print('-' * 35)
-        print(f"{player_board.name}'s Board:")
+        print(f"{name}'s Board:")
         player_board.print()
         print("Computer's Board:")
         computer_board.print()
