@@ -73,9 +73,14 @@ def populate_board(board):
     """
     Populates the board with a randomly placed ship.
     """
-    x = random_point(board.size)
-    y = random_point(board.size)
-    board.add_ship(x, y)
+    while True:
+        x = random_point(board.size)
+        y = random_point(board.size)
+        if (x, y) in board.ships:
+            continue
+        else:
+            board.add_ship(x, y)
+            break
 
     return board
 
