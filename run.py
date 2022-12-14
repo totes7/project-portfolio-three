@@ -165,18 +165,36 @@ def play_game(computer_board, player_board):
         print('-' * 35)
 
 
+def select_grid_size():
+    """
+    Asks user for grid size input, making sure that it 
+    is a number between 5 and 8.
+    """
+    while True:
+        try:
+            size = int(input('Select grid size (5-8): \n'))
+            if (size < 5) or (size > 8):
+                print('You must enter a number between 5 and 8.')
+            else:
+                break
+        except ValueError:
+            print('You must enter a number between 5 and 8.')
+    
+    return size
+
+
 def new_game():
     """
     Starts new game. Sets board size and number of ships, resets the
     scores and initialises the board.
     """
 
-    size = 5
-    num_ships = 4
     scores['computer'] = 0
     scores['player'] = 0
     print('-' * 35)
     print('Welcome to ULTIMATE BATTLESHIPS!!')
+    size = select_grid_size()
+    num_ships = 4
     print(f"Board size: {size}. Number of ships: {num_ships}")
     print('Top lef corner is row: 0, col: 0')
     print('-' * 35)
