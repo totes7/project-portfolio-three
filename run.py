@@ -18,18 +18,17 @@ class Board:
         self.type = type
         self.guesses = []
         self.ships = []
-    
+
     def print(self):
         for row in self.board:
             print(' '.join(row))
-    
+
     def guess(self, x, y):
         self.guesses.append((x, y))
         self.board[x][y] = 'X'
-        
         if (x, y) in self.ships:
             self.board[x][y] = '*'
-            return 'Hit'    
+            return 'Hit'
         else:
             return 'Miss'
 
@@ -56,7 +55,6 @@ def valid_coordinates(x, y, board):
     they have not been provided already.
     """
     size = board.size - 1
-   
     coordinates = (x, y)
     if coordinates in board.guesses:
         print('You cannot guess the same coordinates more than once.')
@@ -102,7 +100,6 @@ def make_guess(board):
                     break
             except ValueError:
                 print('You must enter a number!')
-            
         if board.guess(x, y) == 'Hit':
             print(f'Player guessed: ({x}, {y})')
             print('Player hits!')
@@ -120,7 +117,6 @@ def make_guess(board):
         else:
             print(f'Computer guessed: ({x}, {y})')
             print('Computer missed this time.')
-    
     return board
 
 
@@ -145,9 +141,6 @@ def play_game(computer_board, player_board):
         player_board.print()
         print("Computer's Board:")
         computer_board.print()
-        print(player_board.guesses)
-        print(computer_board.guesses)
-    
     if scores['player'] > scores['computer']:
         print('-' * 35)
         print(f'{player_board.name} wins!')
@@ -167,7 +160,7 @@ def play_game(computer_board, player_board):
 
 def select_grid_size():
     """
-    Asks user for grid size input, making sure that it 
+    Asks user for grid size input, making sure that it
     is a number between 5 and 8.
     """
     while True:
@@ -179,7 +172,6 @@ def select_grid_size():
                 break
         except ValueError:
             print('You must enter a number between 5 and 8.')
-    
     return size
 
 
@@ -212,7 +204,6 @@ def new_game():
     player_board.print()
     print("Computer's Board:")
     computer_board.print()
-    print(computer_board.ships)
     play_game(computer_board, player_board)
 
 
