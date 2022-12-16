@@ -207,7 +207,13 @@ def new_game():
     print(f"Board size: {size}. Number of ships: {num_ships}")
     print('Top lef corner is row: 0, col: 0')
     print('-' * 35)
-    player_name = input('Please enter your name: \n')
+    while True:
+        player_name = input('Please enter your name: \n')
+        if player_name.isspace():
+            print('You cannot select a whitespace as your name!')
+            continue
+        else:
+            break
     print('-' * 35)
 
     computer_board = Board(size, num_ships, 'Computer', type='computer')
