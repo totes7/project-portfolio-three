@@ -108,15 +108,21 @@ def make_guess(board):
             print(f'Player guessed: ({x}, {y})')
             print('Player missed this time.')
     else:
-        x = random_point(board.size)
-        y = random_point(board.size)
-        if board.guess(x, y) == 'Hit':
-            print(f'Computer guessed: ({x}, {y})')
-            print('Computer hits!')
-            scores['computer'] += 1
-        else:
-            print(f'Computer guessed: ({x}, {y})')
-            print('Computer missed this time.')
+        while True:
+            x = random_point(board.size)
+            y = random_point(board.size)
+            if (x, y) in board.guesses:
+                continue
+            else:
+                if board.guess(x, y) == 'Hit':
+                    print(f'Computer guessed: ({x}, {y})')
+                    print('Computer hits!')
+                    scores['computer'] += 1
+                    break
+                else:
+                    print(f'Computer guessed: ({x}, {y})')
+                    print('Computer missed this time.')
+                    break
     return board
 
 
@@ -202,11 +208,6 @@ def new_game():
     scores['player'] = 0
     print('-' * 35)
     print('Welcome to ULTIMATE BATTLESHIPS!!')
-    size = select_grid_size()
-    num_ships = select_num_ships()
-    print(f"Board size: {size}. Number of ships: {num_ships}")
-    print('Top lef corner is row: 0, col: 0')
-    print('-' * 35)
     while True:
         player_name = input('Please enter your name: \n')
         if player_name.isspace():
@@ -214,6 +215,11 @@ def new_game():
             continue
         else:
             break
+    size = select_grid_size()
+    num_ships = select_num_ships()
+    print('-' * 35)
+    print(f"Board size: {size}. Number of ships: {num_ships}")
+    print('Top lef corner is row: 0, col: 0')
     print('-' * 35)
 
     computer_board = Board(size, num_ships, 'Computer', type='computer')
