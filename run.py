@@ -175,6 +175,23 @@ def select_grid_size():
     return size
 
 
+def select_num_ships():
+    """
+    Asks user for number of ships input, making sure that it
+    is a number between 4 and 6.
+    """
+    while True:
+        try:
+            num_ships = int(input('Select number of ships (4-6): \n'))
+            if (num_ships < 4) or (num_ships > 6):
+                print('You must enter a number between 4 and 6.')
+            else:
+                break
+        except ValueError:
+            print('You must enter a number between 4 and 6.')
+    return num_ships
+
+
 def new_game():
     """
     Starts new game. Sets board size and number of ships, resets the
@@ -186,7 +203,7 @@ def new_game():
     print('-' * 35)
     print('Welcome to ULTIMATE BATTLESHIPS!!')
     size = select_grid_size()
-    num_ships = 4
+    num_ships = select_num_ships()
     print(f"Board size: {size}. Number of ships: {num_ships}")
     print('Top lef corner is row: 0, col: 0')
     print('-' * 35)
